@@ -1,3 +1,5 @@
+"use client";
+
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Container } from "@/components/Containers";
 import { Slider } from "@/components/ui/slider";

@@ -267,10 +267,6 @@ export function Header() {
     //   href: "/docs",
     // },
     {
-      name: t("pricing"),
-      href: "/pricing",
-    },
-    {
       name: "Discord",
       href: "https://discord.gg/V9CNuqYfte",
       target: "_blank",

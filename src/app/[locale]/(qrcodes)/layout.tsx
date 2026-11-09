@@ -12,7 +12,6 @@ import {
   SplitRight,
   SplitView,
 } from "@/components/Containers";
-import { SectionStatus } from "@/app/[locale]/SectionStatus";
 
 export default function RootLayout({
   children,
@@ -29,7 +28,6 @@ export default function RootLayout({
       <Container>
         <SplitView className="gap-x-9 gap-y-12 mt-12">
           <SplitLeft className="flex flex-col gap-12">
-            <SectionStatus />
             <SectionQA />
             <SectionRefs />
             <SectionTeam />

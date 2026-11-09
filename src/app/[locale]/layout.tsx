@@ -10,16 +10,20 @@ const inter = Inter({ subsets: ["latin"] });
 import { layoutViewport } from "@/lib/layout_data";
 import { Header } from "@/components/Header";
 import { NextIntlClientProvider } from "next-intl";
-import pick from "lodash/pick";
 import React from "react";
-import { getMessages } from "next-intl/server";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "@/lib/latentcat-auth/client";
 import { getServerSession } from "@/lib/latentcat-auth/server";
+import { locales } from "@/navigation";
+import deepmerge from "deepmerge";
 
 export { generateMetadata } from "@/lib/layout_data";
 
 export const viewport: Viewport = layoutViewport;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default async function RootLayout({
   children,
@@ -29,7 +33,9 @@ export default async function RootLayout({
   params: { locale: string };
 }>) {
   const session = await getServerSession();
-  const messages = await getMessages();
+  const userMessages = (await import(`../../../messages/${locale}.json`)).default;
+  const defaultMessages = (await import("../../../messages/en.json")).default;
+  const messages = deepmerge(defaultMessages, userMessages);
 
   return (
     <html lang={locale} className="antialiased" suppressHydrationWarning>
@@ -38,12 +44,13 @@ export default async function RootLayout({
         <SessionProvider session={{ data: session }}>
           <Providers>
             <NextIntlClientProvider
-              messages={pick(messages, ["header", "user_button"])}
+              locale={locale}
+              messages={messages}
             >
               <Header />
+              <div className="min-h-screen flex flex-col">{children}</div>
+              <Footer />
             </NextIntlClientProvider>
-            <div className="min-h-screen flex flex-col">{children}</div>
-            <Footer />
           </Providers>
         </SessionProvider>
       </body>

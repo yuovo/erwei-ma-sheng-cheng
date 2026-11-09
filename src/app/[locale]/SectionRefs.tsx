@@ -1,3 +1,5 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/Containers";
 import { SectionTitle } from "@/components/Titles";

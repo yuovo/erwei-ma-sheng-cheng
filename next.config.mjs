@@ -6,9 +6,19 @@ import NextBundleAnalyzer from "@next/bundle-analyzer";
 const withBundleAnalyzer = NextBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+const githubPagesRepo =
+  process.env.GITHUB_PAGES_REPO || "erwei-ma-sheng-cheng";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: isGithubPages ? "export" : undefined,
+  basePath: isGithubPages ? `/${githubPagesRepo}` : undefined,
+  assetPrefix: isGithubPages ? `/${githubPagesRepo}/` : undefined,
+  trailingSlash: isGithubPages ? true : undefined,
+  images: {
+    unoptimized: true,
+  },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   async rewrites() {
     return [

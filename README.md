@@ -1,5 +1,11 @@
 <h1 align="center">QRBTF</h1>
 
+## 手机版
+
+直接在手机浏览器打开：
+
+https://yuovo.github.io/erwei-ma-sheng-cheng/
+
 <p align="center">
     Website: <a href="https://qrbtf.com" target="_blank">qrbtf.com</a>
     | <a href="https://discord.gg/V9CNuqYfte" target="_blank">Discord server</a>

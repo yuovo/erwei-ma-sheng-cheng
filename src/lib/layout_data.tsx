@@ -1,6 +1,5 @@
 import { type Metadata, Viewport } from "next";
 
-import { getTranslations } from "next-intl/server";
 import React from "react";
 
 export async function generateMetadata({
@@ -8,26 +7,27 @@ export async function generateMetadata({
 }: Readonly<{
   params: { locale: string };
 }>) {
-  const t = await getTranslations({ locale, namespace: "metadata" });
+  const messages = (await import(`../../messages/${locale}.json`)).default;
+  const metadata = messages.metadata;
 
   return {
     metadataBase: new URL("https://qrbtf.com"),
     title: {
-      template: t("title.template"),
-      default: t("title.default"),
+      template: metadata.title.template,
+      default: metadata.title.default,
     },
-    description: t("description"),
+    description: metadata.description,
     keywords: [
-      t("keywords.0"),
-      t("keywords.1"),
-      t("keywords.2"),
-      t("keywords.3"),
-      t("keywords.4"),
-      t("keywords.5"),
-      t("keywords.6"),
-      t("keywords.7"),
-      t("keywords.8"),
-      t("keywords.9"),
+      metadata.keywords["0"],
+      metadata.keywords["1"],
+      metadata.keywords["2"],
+      metadata.keywords["3"],
+      metadata.keywords["4"],
+      metadata.keywords["5"],
+      metadata.keywords["6"],
+      metadata.keywords["7"],
+      metadata.keywords["8"],
+      metadata.keywords["9"],
     ],
     openGraph: {
       images:
@@ -71,9 +71,10 @@ export const layoutViewport: Viewport = {
 };
 
 export function LayoutHead() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   return (
     <head>
-      <link rel="manifest" href="/manifest.json" />
+      <link rel="manifest" href={`${basePath}/manifest.json`} />
       <link
         rel="apple-touch-icon"
         href="/apple-touch-icon?<generated>"
