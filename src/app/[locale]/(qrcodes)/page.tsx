@@ -2,10 +2,10 @@ import QrcodeGeneratorWithProvider from "@/components/QrcodeGeneratorWithProvide
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import {
-  qrbtfModuleG1,
-  QrbtfRendererG1Props,
-} from "@/lib/qrbtf_lib/qrcodes/g1";
-import { useG1Params } from "@/lib/qrbtf_lib/qrcodes/g1_config";
+  qrbtfModuleA1,
+  QrbtfRendererA1Props,
+} from "@/lib/qrbtf_lib/qrcodes/a1";
+import { useA1Params } from "@/lib/qrbtf_lib/qrcodes/a1_config";
 
 export default function Page({
   params: { locale },
@@ -13,17 +13,17 @@ export default function Page({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations("qrcodes.g1");
-  const { params } = useG1Params();
+  const t = useTranslations("qrcodes.a1");
+  const { params } = useA1Params();
 
   return (
-    <QrcodeGeneratorWithProvider<QrbtfRendererG1Props>
+    <QrcodeGeneratorWithProvider<QrbtfRendererA1Props>
       title={t("title")}
       subtitle={t("subtitle")}
       desc={t("desc")}
-      qrcodeModule={qrbtfModuleG1}
-      params={params} 
-      defaultPreset="g1"
+      qrcodeModule={qrbtfModuleA1}
+      params={params}
+      defaultPreset="a1"
     />
   );
 }
